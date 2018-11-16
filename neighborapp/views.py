@@ -33,6 +33,8 @@ def home(request):
     return render(request, 'index.html', {'businesses':businesses,'neighborhoods':neighborhoods})
 
 def signup(request):
+    # Functions for signing up a new user
+    
 	if request.method == 'POST':
 
 		form = SignUpForm(request.POST, request.FILES)
@@ -52,7 +54,7 @@ def signup(request):
 	else:
 
 		form = SignUpForm()
-        
+
 	return render(request, 'signup.html', {"form":form})		
 
 
