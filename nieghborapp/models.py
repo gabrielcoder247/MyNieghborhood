@@ -59,3 +59,43 @@ class Neighborhood(models.Model):
     def update_occupants(cls, id):
         occupants = cls.objects.filter(id=id).update(id=id)
         return occupants
+
+
+
+class Business(models.Model):
+    business_name = models.CharField(max_length=30, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="user_class")
+    neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,related_name="neighbourhood_class",null=True,blank=True)
+    business_email_address = models.CharField(max_length=200, null = True)
+
+    def __str__(self):
+        return self.business_name
+
+
+    def save_business(self):
+        self.save()
+
+    @classmethod
+    def delete_business_by_id(cls, id):
+        businesses = cls.objects.filter(pk=id)
+        businesses.delete()
+
+    @classmethod
+    def find_business_by_id(cls, id):
+        business = cls.objects.get(pk=id)
+        return business
+
+    @classmethod
+    def filter_by_location(cls, location):
+        businesses = cls.objects.filter(location=location)
+        return businesses
+
+    @classmethod
+    def search_business(cls, search_term):
+        business = cls.objects.filter(business_name__icontains=search_term)
+        return business
+
+    @classmethod
+    def update_business(cls, id):
+        business = cls.objects.filter(id=id).update(id=id)
+        return business
