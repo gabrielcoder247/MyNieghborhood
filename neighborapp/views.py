@@ -14,7 +14,7 @@ def home(request):
         neighborhoods = Neighborhood.search_neighborhood(request.GET.get('search_term'))
 
     else:
-        neighbourhoods = Neighbourhood.objects.all()
+        neighborhoods = Neighborhood.objects.all()
 
 
     if request.GET.get('search_term'):
@@ -23,32 +23,11 @@ def home(request):
     else:
         business = Business.objects.all()
 
-    # if request.GET.get('search_term'):
-    #     projects = Project.search_project(request.GET.get('search_term'))
-
-    # else:
-    #     projects = Project.objects.all()
-
-    # form = NewsLetterForm
-
-    # if request.method == 'POST':
-    #     form = NewsLetterForm(request.POST or None)
-
-
-    #     if form.is_valid():
-    #         name = form.cleaned_data['your_name']
-    #         email = form.cleaned_data['email']
-
-    #         recipient = NewsLetterRecipients(name=name, email=email)
-    #         recipient.save()
-    #         send_welcome_email(name, email)
 
         HttpResponseRedirect('home')
 
 
-    return render(request, 'index.html', {'projects':projects, 'letterForm':form,
-                                          'businesses':businesses,
-                                          'neighbourhoods':neighbourhoods})
+    return render(request, 'index.html', {'businesses':businesses,'neighborhoods':neighborhoods})
 
 
 
