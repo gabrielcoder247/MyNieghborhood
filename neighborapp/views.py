@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404,HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from .forms import *
 
@@ -33,18 +34,25 @@ def home(request):
 
 def signup(request):
 	if request.method == 'POST':
+
 		form = SignUpForm(request.POST, request.FILES)
+
 		if form.is_valid():
 			user = form.save()
 			user.refresh_from_db()
 			user.save()
+
 			username = form.cleaned_data.get('username')
 			raw_password = form.cleaned_data.get('password1')
 			user = authenticate(username =username, password=raw_password)
 			login(request, user)
-		return redirect('home_page')
+
+		return redirect('home')
+
 	else:
+
 		form = SignUpForm()
+        
 	return render(request, 'signup.html', {"form":form})		
 
 
