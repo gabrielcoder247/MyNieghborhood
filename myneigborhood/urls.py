@@ -21,7 +21,6 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'',include('neighborapp.urls')),
-   
     url(r'^logout/$', views.logout, {"next_page": '/'}),
   
 ]

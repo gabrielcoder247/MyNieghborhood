@@ -1,0 +1,53 @@
+{% extends 'base.html'%}
+{% load static%}
+{% load bootstrap4 %}
+{% block styles %}
+  {{block.super}}
+  <link rel="stylesheet" href="{% static 'css/signup.css'%}">
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row mt-4">
+    <!-- Empty div -->
+    <div class="col-md-6 ">
+      <div class="phones_image">
+        <img class=" phone img-responsive"src="{% static "images/insta.png" %}" alt="">
+      </div>
+    </div>
+    <div class="col-md-4 Reg_panel text-center">
+      <div class="panel panel-default">
+        <div class="panel-heading mt-2">
+          <h4 class="text-center">Sign Up Here</h3>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+              {% for field in form %}
+              <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}
+                  <small style="display: none">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+              </p>
+              {% endfor %}
+            <button type="submit" id="button1"> Sign up</button>
+          </form>
+        </div>
+        <br>
+        <div class="account" id>
+            <p>already have an acount <a href = "/accounts/login/">login </a></p>
+            </div>
+            <br>
+        <p class="container__terms">By signin up, you agree to our <br> <strong>Terms & Privacy Policy.</strong></p>
+
+      </div>
+    </div>
+    <!-- empty div -->
+    <div class="col-md-2"></div>
+  </div>
+</div>
+</div>
+{% endblock %}
