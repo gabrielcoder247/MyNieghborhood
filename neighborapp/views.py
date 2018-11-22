@@ -178,3 +178,18 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', {"form": form})
 
 
+def search_business(request):
+
+    # search for a business by its name
+    if 'business' in request.GET and request.GET["business"]:
+        search_term = request.GET.get("business")
+        searched_business = Business.search_business(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html', {"message": message, "business": searched_business})
+
+    else:
+        message = "You haven't searched for any business"
+        return render(request, 'search.html', {"message": message})
+
+
