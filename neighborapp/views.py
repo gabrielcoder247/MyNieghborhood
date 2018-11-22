@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
+from .email import send_welcome_email
 from .models import *
 from .forms import *
 
