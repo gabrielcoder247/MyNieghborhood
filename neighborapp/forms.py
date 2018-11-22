@@ -40,7 +40,7 @@ class CreateNeighbourhoodForm(forms.ModelForm):
 class NewBusinessForm(forms.ModelForm):
     class Meta:
         model = Business
-        exclude = ['user',]        
+        exclude = ['user','neighborhood_id']        
         
         
 
