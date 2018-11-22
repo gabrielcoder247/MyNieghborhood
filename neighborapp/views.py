@@ -64,6 +64,16 @@ def signup(request):
 
 
 
+def business(request, id):
+
+    try:
+        business = Business.objects.get(pk = id)
+
+    except DoesNotExist:
+        raise Http404()
+
+    return render(request, 'business.html', {"business": business})
+
 
 
 
