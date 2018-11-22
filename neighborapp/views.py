@@ -74,6 +74,16 @@ def business(request, id):
 
     return render(request, 'business.html', {"business": business})
 
+def neighborhood(request, id):
+
+    try:
+        neighborhood = Neighborhood.objects.get(pk = id)
+        business = Business.objects.filter(neighborhood_id=neighborhood)
+
+    except DoesNotExist:
+        raise Http404()
+
+    return render(request, 'neighborhood.html', {"neighborhood": neighborhood, 'business':business})
 
 
 
