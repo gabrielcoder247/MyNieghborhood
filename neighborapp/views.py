@@ -99,7 +99,21 @@ def new_business(request):
 
     else:
         form = NewBusinessForm()
-    return render(request, 'registration/new_business.html', {"form": form})	
+    return render(request, 'new_business.html', {"form": form})	
 
 
+@login_required(login_url='/accounts/login/')
+def new_neighbourhood(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewNeighbourhoodForm(request.POST, request.FILES)
+        if form.is_valid():
+            neighbourhood = form.save(commit=False)
+            neighbourhood.user = current_user
+            neighbourhood.save()
+        return redirect('homePage')
+
+    else:
+        form = NewNeighbourhoodForm()
+    return render(request, 'new_neighbourhood.html', {"form": form})
 
