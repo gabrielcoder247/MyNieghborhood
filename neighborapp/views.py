@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import generic
@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from .email import send_welcome_email
+from django.urls import reverse
 from .models import *
 from .forms import *
 
@@ -36,7 +37,7 @@ def home(request):
     return render(request, 'index.html', {'businesses':businesses,'neighborhoods':neighborhoods})
 
 def signup(request):
-    # Functions for signing up a new user
+    # View functions for signing up a new user
     
 	if request.method == 'POST':
 
@@ -158,4 +159,22 @@ def exit(request, id):
 
     print("success")
     return redirect('homePage')
+
+@login_required(login_url='/accounts/login/')
+def edit_profile(request):
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = UpdatebioForm(request.POST, request.FILES, instance=current_user.profile)
+        print(form.is_valid())
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.user = current_user
+            image.save()
+        return redirect('homePage')
+
+    else:
+        form = UpdatebioForm()
+    return render(request, 'edit_profile.html', {"form": form})
+
 
