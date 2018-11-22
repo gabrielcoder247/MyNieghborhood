@@ -111,7 +111,7 @@ class Profile(models.Model):
 
     bio = models.TextField(max_length=200, null=True, blank=True, default="bio")
     profile_pic = models.ImageField(upload_to='picture/', null=True, blank=True, default=0)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="prof")
     # project = models.ForeignKey(Project, null=True)
     email= models.TextField(max_length=200, null=True, blank=True, default=0)
     neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,related_name="neighborhood",null=True,blank=True)

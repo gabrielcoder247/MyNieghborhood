@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
@@ -117,3 +119,24 @@ def new_neighbourhood(request):
         form = NewNeighbourhoodForm()
     return render(request, 'new_neighbourhood.html', {"form": form})
 
+
+@login_required(login_url='/accounts/login/')
+def join(request, id):
+    '''
+    This view function will implement adding
+    '''
+    neighbourhood = Neighbourhood.objects.get(pk=id)
+    if Join.objects.filter(user_id=request.user).exists():
+
+		
+
+        Join.objects.filter(user_id=request.user).update(neighbourhood_id=neighbourhood)
+
+        return redirect(reverse('neighbourhood', args=(neighbourhood.id,)))
+
+    else:
+
+        Join(user_id=request.user, neighbourhood_id=neighbourhood).save()
+
+    print("success")
+    return redirect('homePage')
