@@ -32,7 +32,7 @@ class NewImageForm(forms.ModelForm):
         # exclude = ['user','location'],
 		fields = ['name', 'description', 'image','likes','comments']
 
-class NewNeighbourhoodForm(forms.ModelForm):
+class NewNeighborhoodForm(forms.ModelForm):
     class Meta:
         model = Neighborhood
         exclude = ['user',]

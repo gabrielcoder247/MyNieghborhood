@@ -15,6 +15,7 @@ urlpatterns=[
     url(r'^neighborhood/(\d+)', views.neighborhood, name='neighborhood'),
     url(r'^new/business$', views.new_business, name='new_business'),
     url(r'^new/neighborhood$', views.new_neighborhood, name='new_neighborhood'),
+    url(r'^new/image$', views.new_image, name='new_image'),
     url(r'^edit/profile$', views.edit_profile, name='edit_profile'),
 
   
