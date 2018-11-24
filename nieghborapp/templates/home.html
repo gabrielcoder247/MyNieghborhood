@@ -1,0 +1,66 @@
+{% extends 'base.html'%}
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+<link href="https://fonts.googleapis.com/css?family=Charmonman|Dancing+Script|Kodchasan|Spirax|Abril+Fatface" rel="stylesheet">
+
+{% block content %}
+
+{{block.super}}
+
+<div class='container mt-5'>
+
+        <div id="section1" class="jumbotron container-fluid bg-success mt-4" style="padding-top:70px;padding-bottom:70px">
+                <h1 class="text-center">Welcome to Myhood</h1>
+                <p class="text-center">Hit the search button above to search for you're neighborhood, 
+                    if it exist, just go below to joint or create one</p>
+               
+              </div>
+              
+
+              <form class="form mt-3"  role="search" action="{% url 'search_business' %}">
+
+                <div class="input-group">
+                  <input type="text" class="form-control mr-sm-3" placeholder="Search neighborhood" name="username">
+                  <div class="input-group-btn">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="search"></i>Search</button>
+                  </div>
+                </div>
+      
+                  </form>
+            
+       
+    <div class="row">
+    
+    <div class='col-sm-12 col-md-12 col-xl-12'>
+
+<div class='container mt-5'>
+   
+{% for image in images %}
+
+<div class="card text-center image_card ">
+<div class="card-header img-section">
+   
+  <img src="{{image.profile.profile_photo.url}}" style="width:4rem" data-target="#imageModal{{image.id}}" data-toggle="modal" class="rounded-circle border  user" alt="Card image">
+  <br>
+  <a href="" class="username"><p style="font-family: Georgia, 'Times New Roman', Times, serif"> {{image.profile.user.username}}</p></a>
+</div>
+<div class="card-body "><a href="{% url 'image' image.id %}">
+
+<img src="{{image.image_path.url}}" class="card-img-top" alt="images"  data-target="#imageModal{{image.id}}">
+</a>
+</div>
+<div class="card-footer text-muted">
+   
+</div>
+</div>
+{%endfor%}
+    
+</div>
+</div>
+</div>
+
+
+
+  {% endblock %}
+

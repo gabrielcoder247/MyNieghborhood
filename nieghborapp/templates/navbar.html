@@ -6,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  <nav class="navbar navbar-inverse navbar-light bg-light ">
+  <nav class="navbar navbar-inverse navbar-light bg-dark fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'home_page' %}" style="font-family: 'Grand Hotel', cursive; color:blue;font-size:30px;">Instagram</a>
+        <a class="navbar-brand" href="{% url 'home_page' %}" style="font-family: 'Grand Hotel', cursive; color:blue;font-size:30px;">Myhood</a>
       </div>
 
       <!-- Adding a search form  -->
       <div class="col-sm-4 col-md-4 navbar-right ">
 
-        <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+        <form class="navbar-form" role="search" action="{% url 'search_business' %}">
 
           <div class="input-group">
-            <input type="text" class="form-control mr-sm-3" placeholder="Search Article" name="username">
+            <input type="text" class="form-control mr-sm-3" placeholder="Search Business" name="username">
             <div class="input-group-btn">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="search"></i>Search</button>
             </div>

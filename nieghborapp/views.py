@@ -34,7 +34,7 @@ def home(request):
         HttpResponseRedirect('home')
 
 
-    return render(request, 'index.html', {'businesses':businesses,'neighborhoods':neighborhoods})
+    return render(request, 'home.html', {'business':business,'neighborhoods':neighborhoods})
 
 def signup(request):
     # View functions for signing up a new user

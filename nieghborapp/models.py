@@ -17,6 +17,7 @@ class Neighborhood(models.Model):
         ('Perm', 'Perm'),
         ('Kazan', 'Kazan'),
         ('Sochi', 'Sochi'),
+        ('Nairobi', 'Nairobi'),
     )
 
 
@@ -24,6 +25,7 @@ class Neighborhood(models.Model):
 
     neighborhood_name = models.CharField(max_length=30)
     neighborhood_location = models.CharField(choices=CITY_CHOICES, max_length=200 ,default=0, null=True, blank=True)
+    population = models.IntegerField(default=0, null=True, blank=True)
     occupants_count = models.IntegerField(default=0, null=True, blank=True)
     user = models.ForeignKey(User, related_name="user_neighbor", on_delete=models.CASCADE)
 
@@ -59,14 +61,15 @@ class Neighborhood(models.Model):
         return neighborhoods
 
     @classmethod
-    def update_occupants(cls, id):
-        occupants = cls.objects.filter(id=id).update(id=id)
-        return occupants
+    def update_population(cls, id):
+        population = cls.objects.filter(id=id).update(id=id)
+        return population
 
 
 
 class Business(models.Model):
     business_name = models.CharField(max_length=30, null=True)
+    business_location = models.CharField(max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="user_class")
     neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,related_name="neighbourhood_class",null=True,blank=True)
     business_email_address = models.CharField(max_length=200, null = True)
@@ -112,7 +115,6 @@ class Profile(models.Model):
     bio = models.TextField(max_length=200, null=True, blank=True, default="bio")
     profile_pic = models.ImageField(upload_to='picture/', null=True, blank=True, default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="prof")
-    # project = models.ForeignKey(Project, null=True)
     email= models.TextField(max_length=200, null=True, blank=True, default=0)
     neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,related_name="neighborhood",null=True,blank=True)
 
