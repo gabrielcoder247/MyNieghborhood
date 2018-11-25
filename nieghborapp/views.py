@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import generic
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, Http404,HttpResponseRedirect
+from django.http  import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import UserCreationForm
 from .email import send_welcome_email
 from django.urls import reverse
@@ -83,7 +84,7 @@ def business(request, id):
     try:
         business = Business.objects.get(pk = id)
 
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         raise Http404()
 
     return render(request, 'business.html', {"business": business})
@@ -94,7 +95,7 @@ def neighborhood(request, id):
         neighborhood = Neighborhood.objects.get(pk = id)
         business = Business.objects.filter(neighborhood_id=neighborhood)
 
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         raise Http404()
 
     return render(request, 'neighborhood.html', {"neighborhood": neighborhood, 'business':business})

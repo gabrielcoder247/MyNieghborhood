@@ -33,15 +33,11 @@
                   <button id="button" class="btn  mt-3 btn-outline-success animated pulse loop"
                   style="font-family:'Dosis', sans-serif; text-align:center;width: 50%; ">
             {% if user.profile.neighborhood_id == None %}
-            <a href="{% url 'join' neighborhood.id %}">
-          join</a> </button>
+            <a href="{% url 'business' neighborhood.id %}">
+          business</a> </button>
                 {%endif%}
               </div>
-              <button id="button" class="btn  mt-3 btn-outline-success animated pulse loop"
-                  style="font-family:'Dosis', sans-serif; text-align:center;width: 50%; ">
-            <a href="{% url 'business' business.id %}">
-          business</a> </button>
-        
+
             </div>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2"></div>
