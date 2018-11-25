@@ -7,36 +7,45 @@
 {% block content %}
 
 {{block.super}}
-<div class="jumbotron text-center mt-0 mb-0" style="background-color:#000000;font-family: 'Dosis', sans-serif;">
-  <h2 class="animated zoomInLeft" style="text-align:center;font-size:40px;color:#ffffff;"><strong>NEIGHBOURHOOD DIRECTORY</strong></h2>
-      <div class="card-deck d-flex w-32 " style="background-color:#000000">
+<div class="container-fluid text-center" style="background-color:#f7f7f5;font-family: 'Dosis', sans-serif; margin-top:70px">
+<div class="header">
+    <h2 class="animated zoomInLeft mt-5" style="text-align:center;font-size:40px;color:greenyellow; margin-bottom:70px;"><strong>Welcome to MyHood</strong></h2> 
+</div>
+    <div class="row">
+ 
         {% for neighborhood in neighborhoods %}
-        <div class="card w-33 border border-info" style="background-color:#000000">
-            <div class="card-title border-bottom">
-              <p style="font-size:20px;color:white;"><strong>NEIGHBOURHOOD:</strong>
-
-                <strong><a href="/neighbourhood/{{neighbourhood.id}}">{{neighborhood.neighborhood_name}}</a></strong> </p>
+        <div class="card-deck  mt-5 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="card">
+              <img class="card-img-top" src="..." alt="Card image cap">
+              <div class="card-body">
+                <div class="card-title">
+                <h5 class="card data">Card title</h5><strong>NEIGHBOURHOOD:</strong>
+                </div>
+                <p class="card-text"><strong><a href="/neighbourhood/{{neighbourhood.id}}">{{neighborhood.neighborhood_name}}</a></strong> </p>
+                <div class="card-body border-info w-33" style="background-color:black;">
+                    <p style="color:white;">{{neighborhood.neighborhood_location}} </p>
+                    <p style="font-family: 'Dosis', sans-serif; text-align:center;color:white"> Resident Population:
+      
+                      {{ neighborhood.population}}
+                    </p>
+                
+              </div>
+              <div class="card-footer">
+                  <button id="button" class="btn btn-lg btn-info animated pulse loop"
+                  style="font-family:'Dosis', sans-serif; text-align:center; width:35%;">
+            {% if user.profile.neighborhood_id == None %}
+            <a href="{% url 'join' neighborhood.id %}">
+          JOIN</a> </button>
+                {%endif%}
+              </div>
             </div>
-
-            <div class="card-body border-info w-33" style="background-color:black;">
-              <p style="color:white;">{{neighborhood.neighborhood_location}} </p>
-              <p style="font-family: 'Dosis', sans-serif; text-align:center;color:white"> Resident Population:
-
-                {{ neighborhood.population}}
-              </p>
-              <button id="button" class="btn btn-lg btn-info animated pulse loop"
-                      style="font-family:'Dosis', sans-serif; text-align:center; width:35%;">
-                {% if user.profile.neighborhood_id == None %}
-                <a href="{% url 'join' neighborhood.id %}">
-              JOIN</a> </button>
-              {% endif %}
-
+        </div>
         </div>
 
-
-    </div>
+    
         {% endfor %}
-        </div>
+        
+</div>
 </div>
 
 

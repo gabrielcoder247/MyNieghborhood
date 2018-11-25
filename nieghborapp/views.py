@@ -154,7 +154,7 @@ def join(request, id):
     '''
     This view function will implement adding
     '''
-    neighborhood = Neighborhood.object  s.get(pk=id)
+    neighborhood = Neighborhood.objects.get(pk=id)
     if Join.objects.filter(user_id=request.user).exists():
 
 		

@@ -7,6 +7,12 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class Neighborhood(models.Model):
+
+    '''
+	Model that keeps track of neighborhood datas
+	'''
+
+
     CITY_CHOICES = (
 
         ('London', 'London'),
@@ -71,6 +77,12 @@ class Neighborhood(models.Model):
 
 
 class Business(models.Model):
+
+    '''
+	Model that keeps track of business datas
+	'''
+
+
     business_name = models.CharField(max_length=30, null=True)
     business_location = models.CharField(max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="user_class")
@@ -112,6 +124,12 @@ class Business(models.Model):
 
 
 class Profile(models.Model):
+
+    '''
+	Model that keeps track of profile datas
+	'''
+
+
     class Meta:
         db_table = 'profile'
 
@@ -161,6 +179,11 @@ class Location(models.Model):
 
 
 class Image(models.Model):
+
+    '''
+	Model that keeps track of image datas
+	'''
+
     image = models.ImageField(upload_to='picture/', )
     name = models.CharField(max_length=40)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name="images")
