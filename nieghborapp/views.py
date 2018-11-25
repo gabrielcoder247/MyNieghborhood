@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -14,7 +15,7 @@ from .forms import *
 
 
 @login_required(login_url='/accounts/login/')
-def home(request):
+def homePage(request):
     # Function to display home page data
 
     if request.GET.get('search_term'):
@@ -31,7 +32,17 @@ def home(request):
         business = Business.objects.all()
 
 
-        HttpResponseRedirect('home')
+    
+    if request.GET.get('search_term'):
+        images = Image.search_image(request.GET.get('search_term'))
+
+    else:
+        images = Image.objects.all()
+
+    
+
+
+        HttpResponseRedirect('home_page')
 
 
     return render(request, 'home.html', {'business':business,'neighborhoods':neighborhoods})
@@ -57,7 +68,7 @@ def signup(request):
 			send_welcome_email(username,email)
 			login(request, user)
 
-		return redirect('home')
+		return redirect('home_page')
 
 	else:
 
@@ -98,7 +109,7 @@ def new_business(request):
             business = form.save(commit=False)
             business.user = current_user
             business.save()
-        return redirect('homePage')
+        return redirect('home_page')
 
     else:
         form = NewBusinessForm()
@@ -114,11 +125,28 @@ def new_neighborhood(request):
             neighborhood = form.save(commit=False)
             neighborhood.user = current_user
             neighborhood.save()
-        return redirect('homePage')
+        return redirect('home_page')
 
     else:
         form = NewNeighborhoodForm()
     return render(request, 'new_neighborhood.html', {"form": form})
+
+# @login_required(login_url='/accounts/login/')
+# def join(request,id):
+
+#     '''
+#     This view function will implement adding
+#     '''
+
+#     neighborhood_id = get_object_or_404(Neighborhood, pk=id)
+#     request.user.neighborhood = neighborhood_id
+#     request.user.save()
+
+#     print("success")
+#     return redirect(homePage)
+
+
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -126,39 +154,51 @@ def join(request, id):
     '''
     This view function will implement adding
     '''
-    neighbourhood = Neighbourhood.objects.get(pk=id)
+    neighborhood = Neighborhood.object  s.get(pk=id)
     if Join.objects.filter(user_id=request.user).exists():
 
 		
 
-        Join.objects.filter(user_id=request.user).update(neighbourhood_id=neighbourhood)
+        Join.objects.filter(user_id=request.user).update(neighborhood_id=neighborhood)
 
-        return redirect(reverse('neighbourhood', args=(neighbourhood.id,)))
+        return redirect(reverse('neighborhood', args=(neighborhood.id,)))
 
     else:
 
-        Join(user_id=request.user, neighbourhood_id=neighbourhood).save()
+        Join(user_id=request.user, neighborhood_id=neighborhood).save()
 
     print("success")
-    return redirect('homePage')
+    return redirect('home_page')
 
 
 @login_required(login_url='/accounts/login/')
 def exit(request, id):
 
-    neighbourhood = Neighbourhood.objects.get(pk=id)
+    neighborhood = Neighborhood.objects.get(pk=id)
     if Join.objects.filter(user_id=request.user).exists():
 
         Join.objects.filter(user_id=request.user).delete()
 
-        return redirect(reverse('neighbourhood', args=(neighbourhood.id,)))
+        return redirect(reverse('neighborhood', args=(neighborhood.id,)))
 
     else:
 
-        Join(user_id=request.user, neighbourhood_id=neighbourhood).delete()
+        Join(user_id=request.user, neighborhood_id=neighborhood).delete()
 
     print("success")
     return redirect('homePage')
+
+
+
+# def exit(request,id):
+#     neighborhood_id = get_object_or_404(Neighborhood, pk=id)
+#     if request.user.neighborhood == neighborhood_id:
+#         request.user.neighborhood=None
+#         request.user.save()
+#     return redirect(homePage)
+
+
+
 
 def search_business(request):
 

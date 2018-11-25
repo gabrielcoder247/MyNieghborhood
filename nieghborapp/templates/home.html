@@ -7,57 +7,36 @@
 {% block content %}
 
 {{block.super}}
+<div class="jumbotron text-center mt-0 mb-0" style="background-color:#000000;font-family: 'Dosis', sans-serif;">
+  <h2 class="animated zoomInLeft" style="text-align:center;font-size:40px;color:#ffffff;"><strong>NEIGHBOURHOOD DIRECTORY</strong></h2>
+      <div class="card-deck d-flex w-32 " style="background-color:#000000">
+        {% for neighborhood in neighborhoods %}
+        <div class="card w-33 border border-info" style="background-color:#000000">
+            <div class="card-title border-bottom">
+              <p style="font-size:20px;color:white;"><strong>NEIGHBOURHOOD:</strong>
 
-<div class='container mt-5'>
+                <strong><a href="/neighbourhood/{{neighbourhood.id}}">{{neighborhood.neighborhood_name}}</a></strong> </p>
+            </div>
 
-        <div id="section1" class="jumbotron container-fluid bg-success mt-4" style="padding-top:70px;padding-bottom:70px">
-                <h1 class="text-center">Welcome to Myhood</h1>
-                <p class="text-center">Hit the search button above to search for you're neighborhood, 
-                    if it exist, just go below to joint or create one</p>
-               
-              </div>
-              
+            <div class="card-body border-info w-33" style="background-color:black;">
+              <p style="color:white;">{{neighborhood.neighborhood_location}} </p>
+              <p style="font-family: 'Dosis', sans-serif; text-align:center;color:white"> Resident Population:
 
-              <form class="form mt-3"  role="search" action="{% url 'search_business' %}">
+                {{ neighborhood.population}}
+              </p>
+              <button id="button" class="btn btn-lg btn-info animated pulse loop"
+                      style="font-family:'Dosis', sans-serif; text-align:center; width:35%;">
+                {% if user.profile.neighborhood_id == None %}
+                <a href="{% url 'join' neighborhood.id %}">
+              JOIN</a> </button>
+              {% endif %}
 
-                <div class="input-group">
-                  <input type="text" class="form-control mr-sm-3" placeholder="Search neighborhood" name="username">
-                  <div class="input-group-btn">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="search"></i>Search</button>
-                  </div>
-                </div>
-      
-                  </form>
-            
-       
-    <div class="row">
-    
-    <div class='col-sm-12 col-md-12 col-xl-12'>
+        </div>
 
-<div class='container mt-5'>
-   
-{% for image in images %}
 
-<div class="card text-center image_card ">
-<div class="card-header img-section">
-   
-  <img src="{{image.profile.profile_photo.url}}" style="width:4rem" data-target="#imageModal{{image.id}}" data-toggle="modal" class="rounded-circle border  user" alt="Card image">
-  <br>
-  <a href="" class="username"><p style="font-family: Georgia, 'Times New Roman', Times, serif"> {{image.profile.user.username}}</p></a>
-</div>
-<div class="card-body "><a href="{% url 'image' image.id %}">
-
-<img src="{{image.image_path.url}}" class="card-img-top" alt="images"  data-target="#imageModal{{image.id}}">
-</a>
-</div>
-<div class="card-footer text-muted">
-   
-</div>
-</div>
-{%endfor%}
-    
-</div>
-</div>
+    </div>
+        {% endfor %}
+        </div>
 </div>
 
 
