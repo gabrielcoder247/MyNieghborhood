@@ -46,7 +46,7 @@ def homePage(request):
         HttpResponseRedirect('home_page')
 
 
-    return render(request, 'home.html', {'business':business,'neighborhoods':neighborhoods})
+    return render(request, 'home.html', {'business':business,'neighborhoods':neighborhoods, 'images':images})
 
 def signup(request):
     # View functions for signing up a new user
@@ -130,7 +130,7 @@ def new_neighborhood(request):
 
     else:
         form = NewNeighborhoodForm()
-    return render(request, 'new_neighborhood.html', {"form": form})
+    return render(request, 'create/new_neighborhood.html', {"form": form})
 
 # @login_required(login_url='/accounts/login/')
 # def join(request,id):
