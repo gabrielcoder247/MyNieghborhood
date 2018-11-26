@@ -114,7 +114,7 @@ def new_business(request):
 
     else:
         form = NewBusinessForm()
-    return render(request, 'new_business.html', {"form": form})	
+    return render(request, 'create/new_business.html', {"form": form})	
 
 
 @login_required(login_url='/accounts/login/')
@@ -246,7 +246,7 @@ def new_image(request):
 
     else:
         form = NewImageForm()
-    return render(request, 'new_image.html', {"form": form})
+    return render(request, 'create/new_image.html', {"form": form})
 
 
 
