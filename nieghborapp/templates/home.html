@@ -34,7 +34,7 @@
                   <button id="button" class="btn  mt-3 btn-outline-success animated pulse loop"
                   style="font-family:'Dosis', sans-serif; text-align:center;width: 50%; ">
             {% if user.profile.neighborhood_id == None %}
-            <a href="{% url 'join' neighborhood.id %}">
+            <a class='btn btn-default' href="{% url 'join' neighborhood.id %}">
           join</a> </button>
                 {%endif%}
               </div>

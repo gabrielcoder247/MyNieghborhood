@@ -31,7 +31,7 @@ def homePage(request):
 
     else:
         business = Business.objects.all()
-
+        
 
     
     if request.GET.get('search_term'):
@@ -39,6 +39,7 @@ def homePage(request):
 
     else:
         images = Image.objects.all()
+        
 
     
 
@@ -208,6 +209,7 @@ def search_business(request):
         search_term = request.GET.get("business")
         searched_business = Business.search_business(search_term)
         message = "{search_term}" 
+       
 
         return render(request, 'search.html', {"message": message, "business": searched_business})
 

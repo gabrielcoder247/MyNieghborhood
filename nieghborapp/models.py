@@ -35,7 +35,7 @@ class Neighborhood(models.Model):
     user = models.ForeignKey(User, related_name="user_neighbor", on_delete=models.CASCADE)
     neighborhood_location = models.CharField(choices=CITY_CHOICES, max_length=200 ,default=0, null=True, blank=True)
     population = models.IntegerField(default=0, null=True, blank=True)
-    neighborhood_image = models.ImageField(upload_to='picture/' )
+    neighborhood_image = models.ImageField(upload_to='image/' )
     
     
 
@@ -72,7 +72,7 @@ class Neighborhood(models.Model):
 
     @classmethod
     def update_population(cls, id):
-        population = cls.objects.filter(id=id).update(id=id)
+        population = cls.objects.filter(id=id).update(id=id).count()
         return population
 
 
