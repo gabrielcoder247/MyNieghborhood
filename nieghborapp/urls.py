@@ -17,6 +17,7 @@ urlpatterns=[
     url(r'^new/neighborhood$', views.new_neighborhood, name='new_neighborhood'),
     url(r'^new/image$', views.new_image, name='new_image'),
     url(r'^edit/profile$', views.edit_profile, name='edit_profile'),
+    url(r'^profile/(?P<username>[0-9]+)$',views.profile, name='profile'),
 
   
 ]

@@ -251,4 +251,26 @@ def new_image(request):
     return render(request, 'create/new_image.html', {"form": form})
 
 
+@login_required(login_url='/accounts/login/')
+def profile(request, username):
+    
+    if not username:
+        username = request.user.username
+    # images by user id
+    images = Image.objects.filter(user_id=username)
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    userProfile = User.objects.get(pk=username)
+   
+    if userProfile:
+        print('user found')
+        profile = Profile.objects.get(user=userProfile)
+    else:
+        print('No suchuser')
+    return render (request, 'profile.html',  {'images':images,
+                                                                  'profile':profile,
+                                                                  'user':user,
+                                                                  'username': username})
+
+
 

@@ -1,0 +1,63 @@
+{% extends 'base.html'%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+
+
+<!-- Home Section Start -->
+<section class="home-section" style="margin-top:150px">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-8 col-sm-8 col-lg-8">
+    <h1>{{user.username|upper}}'S Profile</h1>
+             <div class="col-sm-offset-2 col-md-4 col-sm-6 margin-left-setting">
+                <div class="margin-top-150">
+        <div class="container">
+               
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>username</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{user.first_name}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.username}}</td>
+              </tr>
+              <tr>
+                <td>Contact</td>
+                <td>Moe</td>
+                <td>mary@example.com</td>
+              </tr>
+              <tr>
+                <td>{{prof.contact}}</td>
+                <td>{{prof.bio}}</td>
+                <td>july@example.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+                 </div>
+               </div>
+
+        </div>
+        <div class="col-md-2 col-sm-2 col-lg-2">
+                <div class="me-project">
+                  <img  src="{{profile.profile_pic.url}}" class='img-responsive img-rounded' style="height: 200px;width: 50%;">
+              </div>
+            </div>
+
+        </div>
+          </div>
+        </div>
+    </section>
+
+
+{% endblock %}

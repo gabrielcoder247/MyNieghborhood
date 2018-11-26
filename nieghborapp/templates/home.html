@@ -11,15 +11,15 @@
 <div class="header">
     <h2 class="animated zoomInLeft mt-5" style="text-align:center;font-size:45px;color:greenyellow; margin-bottom:70px;"><strong>Welcome to MyHood</strong></h2> 
 </div>
-    <div class="row">
+    <div class="row ml-5">
  
         {% for neighborhood in neighborhoods %}
-        <div class="card-deck  mt-5 col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <div class="card-deck  mt-5 col-xs-3 col-sm-3 col-md-3 col-lg-3 " style="height:500px;" >
             <div class="card">
-              <img class="card-img-top" src="{{neighborhood.neighborhood_image.url}}" alt="Card image cap">
+              <img class="card-img-top" src="{{neighborhood.neighborhood_image.url}}" alt="Card image cap" style="height:30%;">
               <div class="card-body">
                 <div class="card-title">
-                <h5 class="card data" style="font-size:18px;"><strong>NEIGHBOURHOOD</strong></h5>
+                <h5 class="card data" style="font-size:15px;"><strong>NEIGHBOURHOOD</strong></h5>
                 </div>
                 <p class="card-text"><strong><a href="/neighbourhood/{{neighbourhood.id}}">{{neighborhood.neighborhood_name}}</a></strong> </p>
                 <div class="card-body border-info w-33" style="background-color:greenyellow; border-radius: 5px;">
