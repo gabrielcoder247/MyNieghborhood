@@ -1,10 +1,22 @@
 {%extends "registration/base.html"%}
 {% load bootstrap4 %}
+{% load static %}
+{% block styles %}
+  {{block.super}}
+
+<link href="https://fonts.googleapis.com/css?family=Charmonman|Dancing+Script|Kodchasan|Spirax|Abril+Fatface" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login.css'%}">
+{% endblock %}
 {% block content %}
-<div class="container">
-  <div class="row">
+<div class="container-fluid" >
+  <div class="row" style="background-image: url(https://images.unsplash.com/photo-1498957607239-c54bf0abde7a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f99dbfab51d62ef16c0e8cac3f663427&auto=format&fit=crop&w=334&q=80); 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;">
     <!-- Empty div -->
-    <div class="col-md-4"></div>
+    <div class="col-md-4" ></div>
     <div class="col-md-4 mt-5" style="border:1px  solid #E6E6E6;">
       {% if form.errors %}
         <p> Password or Username is incorrect </p>

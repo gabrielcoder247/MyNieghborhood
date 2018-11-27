@@ -60,7 +60,8 @@ def signup(request):
 			user = form.save()
 			user.refresh_from_db()
 			user.save()
-
+            
+            
 			username = form.cleaned_data.get('username')
 			raw_password = form.cleaned_data.get('password1')
 			username = form.cleaned_data.get('email')
