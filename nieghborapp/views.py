@@ -223,16 +223,16 @@ def edit_profile(request):
     current_user = request.user
 
     if request.method == 'POST':
-        form = UpdatebioForm(request.POST, request.FILES, instance=current_user.profile)
+        form = NewProfileForm(request.POST, request.FILES, instance=current_user)
         print(form.is_valid())
         if form.is_valid():
             image = form.save(commit=False)
             image.user = current_user
             image.save()
-        return redirect('homePage')
+        return redirect('home_page')
 
     else:
-        form = UpdatebioForm()
+        form = NewProfileForm()
     return render(request, 'edit_profile.html', {"form": form})
 
 @login_required(login_url='/accounts/login/')
@@ -259,18 +259,24 @@ def profile(request, username):
     # images by user id
     images = Image.objects.filter(user_id=username)
     user = request.user
-    profile = Profile.objects.get(user=user)
-    userProfile = User.objects.get(pk=username)
-   
+    profiles = Profile.objects.filter(user=user)
+    userProfile = User.objects.filter(pk=username)
     if userProfile:
         print('user found')
-        profile = Profile.objects.get(user=userProfile)
+        profiles = Profile.objects.filter(user=userProfile)
     else:
         print('No suchuser')
-    return render (request, 'profile.html',  {'images':images,
-                                                                  'profile':profile,
-                                                                  'user':user,
-                                                                  'username': username})
+    return render (request, 'profile.html',  {'images':images,'profiles':profiles,'user':user})
+
+
+
+# @login_required(login_url='/login')
+# def profile(request):
+#     profile =Profile.objects.filter(user=request.user.id)
+#     neighbour =Neighbourhood.objects.filter(user=request.user.id)
+#     # commented = CommentForm()
+#     return render(request, 'profile.html', {"profile": profile, "neighbour": neighbour})
+
 
 
 
