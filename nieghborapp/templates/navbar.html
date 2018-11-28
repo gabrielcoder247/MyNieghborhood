@@ -52,6 +52,11 @@
         <br>
         <hr>
         <li style="font-family: 'Oswald', sans-serif;">
+            <a class='btn btn-default' href="{% url 'new_business'%}">create business</a>
+          </li>
+          <br>
+        <hr>
+        <li style="font-family: 'Oswald', sans-serif;">
             <a class='btn btn-default' href="{% url 'edit_profile' %}">edit profile</a>
           </li>
           <br>
@@ -62,8 +67,6 @@
       </ul>
     </li>
   </ul>
-  <br>
-      <a class='btn btn-default' href="{% url 'new_business'%}" style="font-family: 'Oswald', sans-serif;">create business</a>
   {% else %}
   <li>
     <a class='btn btn-default' href="/accounts/login">Login</a>

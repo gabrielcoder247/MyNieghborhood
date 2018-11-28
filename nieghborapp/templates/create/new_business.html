@@ -18,7 +18,7 @@
 </head>
 
 <body>
-<div class="container mt-5" style="background-color:black; color:white;font-family: 'Dosis', sans-serif;">
+<div class="container-fluid " style="background-color:greenyellow; color:white;font-family: 'Dosis', sans-serif; margin-top:70px;">
 
      <div class="row">
 
@@ -27,7 +27,7 @@
     {%csrf_token%}
 
     {% bootstrap_form form%}
-    <input id="id_myfield" type="submit" class="btn btn-success btn-lg" value="Post">
+    <input id="id_myfield" type="submit" class="btn btn-success btn-lg mb-5" value="Post">
   </form>
 
    {% block scripts %}
