@@ -84,12 +84,12 @@ def signup(request):
 def business(request, id):
 
     try:
-        business = Business.objects.get(pk = id)
+        businesses = Business.objects.get(pk = id)
 
     except ObjectDoesNotExist:
         raise Http404()
 
-    return render(request, 'business.html', {"business": business})
+    return render(request, 'business.html', {"businesses": businesses})
 
 def neighborhood(request, id):
 
@@ -112,7 +112,8 @@ def new_business(request):
             business = form.save(commit=False)
             business.user = current_user
             business.save()
-        return redirect('home_page')
+        return redirect('business',  args=(business.id))
+        
 
     else:
         form = NewBusinessForm()
@@ -182,14 +183,14 @@ def exit(request, id):
 
         Join.objects.filter(user_id=request.user).delete()
 
-        return redirect(reverse('neighborhood', args=(neighborhood.id,)))
+        return redirect(reverse('join', args=(neighborhood.id,)))
 
     else:
 
         Join(user_id=request.user, neighborhood_id=neighborhood).delete()
 
     print("success")
-    return redirect('homePage')
+    return redirect('home_page')
 
 
 

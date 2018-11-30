@@ -36,11 +36,11 @@
                 <span class="caret"></span>
             </a>
       <ul class="dropdown-menu text-center" role="menu">
-        <li style="font-family: 'Oswald', sans-serif;">
+        <!-- <li style="font-family: 'Oswald', sans-serif;">
           <a class='btn btn-default' href="{%url 'home_page'%}">Home</a>
         </li>
         <br>
-        <hr>
+        <hr> -->
         <li style="font-family: 'Oswald', sans-serif;">
           <a class='btn btn-default' href="/logout">Logout</a>
         </li>
@@ -50,16 +50,6 @@
           <a class='btn btn-default' href="{% url 'new_neighborhood'%}">create hood</a>
         </li>
         <br>
-        <hr>
-        <li style="font-family: 'Oswald', sans-serif;">
-            <a class='btn btn-default' href="{% url 'new_business'%}">create business</a>
-          </li>
-          <br>
-        <hr>
-        <li style="font-family: 'Oswald', sans-serif;">
-            <a class='btn btn-default' href="{% url 'edit_profile' %}">edit profile</a>
-          </li>
-          <br>
         <hr>
           <li style="font-family: 'Dosis', sans-serif;font-size:13px;">
             <a class='btn btn-default' href="{% url 'profile' user.id %}">Profile</a>

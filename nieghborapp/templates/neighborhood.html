@@ -30,12 +30,25 @@
                 
               </div>
               <div class="card-footer">
-                  <button id="button" class="btn  mt-3 btn-outline-success animated pulse loop"
-                  style="font-family:'Dosis', sans-serif; text-align:center;width: 50%; ">
-            {% if user.profile.neighborhood_id == None %}
+                  <button class="btn  btn-outline-danger"
+                  style="font-family:'Dosis', sans-serif; text-align:center; width: 30%;">
+            <a class="btn btn-default animated pulse loop" href="{% url 'exit' neighborhood.id %}" >
+          exit hood</a> </button>
+          
+          {% if user.profile.neighborhood_id == None %}
+                  <button id="button" class="btn  btn-outline-success animated pulse loop"
+                  style="font-family:'Dosis', sans-serif; text-align:center;width: 30%; ">
+        
             <a  class='btn btn-default' href="{% url 'business' neighborhood.id %}">
-          business</a> </button>
+          businesses</a> </button>
                 {%endif%}
+                <!-- <li style="font-family: 'Oswald', sans-serif;"> -->
+                  <button class="btn btn-outline-info"  style="font-family:'Dosis', sans-serif; text-align:center;width: 30%; " >
+                  <a class='btn btn-default' href="{% url 'new_business'%}">create business</a>
+                </button>
+                <!-- </li>
+                <br> -->
+              <hr>
               </div>
 
             </div>

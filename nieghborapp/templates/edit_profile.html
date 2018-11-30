@@ -17,16 +17,16 @@
 </head>
 
 <body>
-<div class="container" style="background-color:greenyellow; color:white;font-family: 'Dosis', sans-serif; margin-top:70px;">
+<div class="container-fluid" style="background-color:greenyellow; color:white;font-family: 'Dosis', sans-serif; margin-top:70px;">
 
      <div class="row">
 
 
-  <form  action="{%url 'edit_profile'%}" method="post" enctype="multipart/form-data">
+  <form  action="{%url 'edit_profile'%}" method="post" enctype="multipart/form-data" style="font-family: 'Dosis', sans-serif; margin-top:40px; margin-left:85px;">
     {%csrf_token%}
 
     {% bootstrap_form form%}
-    <input id="id_myfield" type="submit" class="btn btn-success btn-lg" value="Post">
+    <input id="id_myfield" type="submit" class="btn btn-success btn-lg mb-5 ml-5" value="Post">
   </form>
 
    {% block scripts %}
