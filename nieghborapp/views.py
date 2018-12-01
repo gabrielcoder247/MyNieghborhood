@@ -66,7 +66,7 @@ def signup(request):
 			raw_password = form.cleaned_data.get('password1')
 			username = form.cleaned_data.get('email')
 
-			user = authenticate(username =username, password=raw_password, email=email)
+			email = authenticate(username =username, password=raw_password, email=email)
 			user.save()
 			send_welcome_email(username,email)
 			login(request, user)
@@ -85,11 +85,14 @@ def business(request, id):
 
     try:
         businesses = Business.objects.get(pk = id)
+        # neighborhood = Neighborhood.objects.get(pk=id)
+        # businesses = Business.objects.filter(neighborhood_id = neighborhood)
+       
 
     except ObjectDoesNotExist:
         raise Http404()
 
-    return render(request, 'business.html', {"businesses": businesses})
+    return render(request, 'business.html', {"businesses": businesses, "neighborhood":neighborhood})
 
 def neighborhood(request, id):
 
@@ -112,7 +115,7 @@ def new_business(request):
             business = form.save(commit=False)
             business.user = current_user
             business.save()
-        return redirect('business',  args=(business.id))
+        return redirect('home_page',)
         
 
     else:
@@ -207,13 +210,13 @@ def exit(request, id):
 def search_business(request):
 
     # search for a business by its name
-    if 'business' in request.GET and request.GET["business"]:
-        search_term = request.GET.get("business")
+    if 'business_name' in request.GET and request.GET["business_name"]:
+        search_term = request.GET.get("business_name")
         searched_business = Business.search_business(search_term)
-        message = "{search_term}" 
+        message = search_term 
        
 
-        return render(request, 'search.html', {"message": message, "business": searched_business})
+        return render(request, 'search.html', {"message": message, "searched_business": searched_business})
 
     else:
         message = "You haven't searched for any business"
@@ -259,25 +262,16 @@ def profile(request, username):
     if not username:
         username = request.user.username
     # images by user id
-    images = Image.objects.filter(user_id=username)
-    user = request.user
-    profiles = Profile.objects.filter(user=user)
-    userProfile = User.objects.filter(pk=username)
-    if userProfile:
-        print('user found')
-        profiles = Profile.objects.filter(user=userProfile)
+        images = Image.objects.filter(user_id=username)
+        user = request.user
+        profiles = Profile.objects.filter(user=user)
+    
     else:
+        profiles = Profile.objects.filter(user=username)
         print('No suchuser')
-    return render (request, 'profile.html',  {'images':images,'profiles':profiles,'user':user})
+    return render (request, 'profile.html',  {'profiles':profiles})
 
 
-
-# @login_required(login_url='/login')
-# def profile(request):
-#     profile =Profile.objects.filter(user=request.user.id)
-#     neighbour =Neighbourhood.objects.filter(user=request.user.id)
-#     # commented = CommentForm()
-#     return render(request, 'profile.html', {"profile": profile, "neighbour": neighbour})
 
 
 

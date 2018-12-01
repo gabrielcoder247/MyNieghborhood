@@ -1,3 +1,3 @@
-Hello {{name}}
+Hello {{username}}
 
 Welcome to Neigborhood apps. You will find the most exciting things like been in touch with happenings in your neighhborhood

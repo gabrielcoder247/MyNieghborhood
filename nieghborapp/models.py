@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.sql.datastructures import Join
 from django.db.models.signals import post_save
+import datetime as dt
 
 # Create your models here.
 
@@ -31,11 +32,12 @@ class Neighborhood(models.Model):
 
 
 
-    neighborhood_name = models.CharField(max_length=30)
-    user = models.ForeignKey(User, related_name="user_neighbor", on_delete=models.CASCADE)
+    neighborhood_name = models.CharField(max_length=30, null=True,)
+    user = models.ForeignKey(User, related_name="user_neighbor", on_delete=models.CASCADE, null=True)
     neighborhood_location = models.CharField(choices=CITY_CHOICES, max_length=200 ,default=0, null=True, blank=True)
     population = models.IntegerField(default=0, null=True, blank=True)
-    neighborhood_image = models.ImageField(upload_to='image/' )
+    neighborhood_image = models.ImageField(upload_to='image/', null=True,)
+    
     
     
 
@@ -185,7 +187,7 @@ class Image(models.Model):
 	Model that keeps track of image datas
 	'''
 
-    image = models.ImageField(upload_to='picture/', )
+    image = models.ImageField(upload_to='images/', )
     name = models.CharField(max_length=40)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name="images")
     description = models.TextField()

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'pyuploadcare.dj',
+    
    
   
     
@@ -142,7 +142,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# UPLOADCARE = {
-#     'pub_key': '8ad64a2348beefc83b55',
-#     'secret': '2f7fc4202d91f115935f',
-# }
+

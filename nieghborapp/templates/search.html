@@ -2,20 +2,20 @@
 
 {% block content %}
 
-<div class="container mt-5">
+<div class="container" style="background-color:#f7f7f5;font-family: 'Dosis', sans-serif; margin-top:70px">
     <div class="row">
-    {% if business %}
-    <h2> Found {{business|length }} of searched term {{message}}</h2>
+    {% if searched_business %}
+    <h2> Found {{searched_business|length }} of searched term  for {{message}}</h2>
     {% else %}
-    <h2 Found 0 searches for the search term {{message}}></h2>
+    <h2>Found 0 searches for the search term {{message}}</h2>
     {% endif %}
 </div>
 
 <div class="row">
-    {% if business %}
-    {% for business in business %}
+    {% if searched_business %}
+    {% for business in searched_business %}
     <div class="col-sm-6 col-md-3">
-        <h1>{{business.business_name}}</h1>
+        <a href="{% url 'business' business.id %}"> <p>{{business.business_name}}</p></a>
     </div>
     {% endfor %}
     {% endif %}
