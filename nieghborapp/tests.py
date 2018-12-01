@@ -29,5 +29,27 @@ class NeighborhoodTestClass(TestCase):
         neighborhood = Neighborhood.objects.all()
         self.assertTrue(len(neighborhood)==0)
 
+    def  test_get_neighborhood_by_id(self):
+        self.neighborhood.save()
+        neighborhood = Neighborhood.objects.get(id=1)
+        self.assertTrue(neighborhood.neighborhood_name,'langata')
+
+    def test_search_neighborhood(self):
+        self.neighborhood.save()
+        neighborhood = Neighborhood.objects.filter(neighborhood_name__icontains ='nairobi')
+        self.assertTrue(len(neighborhood)>0)
+
+class BusinessTestclass(TestCase):
+
+    def setUp(self):
+        self.business = Business(business_name='edu enterprise',
+                                business_location='nairobi',
+                                business_email_address='edu@gmail.com',
+                                ) 
+
+    def test_instance(self):
+            self.assertTrue(isinstance(self.business,Business)) 
+                                              
+
 
 
