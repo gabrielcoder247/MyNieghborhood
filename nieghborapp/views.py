@@ -277,25 +277,6 @@ def profile(request, username):
     return render (request, 'profile.html',  {'profiles':profiles})
 
 
-@login_required(login_url='/accounts/login')
-def comments(request, comment_id):
-    neighborhood = get_object_or_404(Neighborhood, pk=comment_id)
-    current_user = request.user
-    if request.method == 'POST':
-        form = CommentForm(request.POST, request.FILES)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user =  current_user
-            comment.neighborhood = neighborhood
-            comment.save()
-        return redirect(reverse('neighborhood', args=(neighborhood.id,)))
-
-    else:
-        form = CommentForm()
-    return render(request, 'comments.html', {"form": form})
-
-
-
 
 
 @login_required(login_url='/accounts/login/')
