@@ -40,7 +40,7 @@ class NeighborhoodTestClass(TestCase):
         self.assertTrue(len(neighborhood)>0)
 
 class BusinessTestclass(TestCase):
-
+    # test methods
     def setUp(self):
         self.business = Business(business_name='edu enterprise',
                                 business_location='nairobi',
@@ -49,7 +49,24 @@ class BusinessTestclass(TestCase):
 
     def test_instance(self):
             self.assertTrue(isinstance(self.business,Business)) 
-                                              
+
+    def test_save_method(self):
+        self.business.save()
+        business = Business.objects.all()
+        self.assertTrue(len(business) > 0)
+
+
+    def delete_business_by_id(self):
+        business_delete = Business.objects.filter(id=1)
+        business_delete.delete()
+        business = Business.objects.all()
+        self.assertTrue(len(business)==0)
+
+    def test_search_business(self):
+        self.business.save()
+        business = Business.objects.filter(business_name__icontains ='edu enterprise')
+        self.assertTrue(len(business)>0)
+    
 
 
 

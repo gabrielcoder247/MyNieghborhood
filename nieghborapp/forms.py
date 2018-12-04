@@ -20,10 +20,13 @@ class NewProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ['user','neighborhood_id'] 
-        widgets = {
-            'tags': forms.CheckboxSelectMultiple(),
-        }
-
+        # widgets = {
+        #     'tags': forms.CheckboxSelectMultiple(),
+        # }
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user']
 
 # Create a image form fields
 class NewImageForm(forms.ModelForm):
@@ -46,11 +49,11 @@ class NewBusinessForm(forms.ModelForm):
 
 
 
-# class CommentForm(forms.ModelForm):
-#     class Meta:
-#         model = Comments
-#         fields = ('comment',)
-#         exclude = ['user','post']
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        fields = ('post',)
+        exclude = ['user']
 
 # class LikesForm(forms.ModelForm):
 #     class Meta:

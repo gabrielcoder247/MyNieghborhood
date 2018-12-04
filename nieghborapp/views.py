@@ -39,7 +39,14 @@ def homePage(request):
 
     else:
         images = Image.objects.all()
+
+    if request.GET.get('search_term'):
+        profiles = Profile.search_profile(request.GET.get('search_term'))
+
+    else:
+        profiles = Profile.objects.all()
         
+    
 
     
 
@@ -47,7 +54,7 @@ def homePage(request):
         HttpResponseRedirect('home_page')
 
 
-    return render(request, 'home.html', {'business':business,'neighborhoods':neighborhoods, 'images':images})
+    return render(request, 'home.html', {'business':business,'neighborhoods':neighborhoods, 'images':images,"profiles":profiles})
 
 def signup(request):
     # View functions for signing up a new user
@@ -66,7 +73,7 @@ def signup(request):
 			raw_password = form.cleaned_data.get('password1')
 			username = form.cleaned_data.get('email')
 
-			email = authenticate(username =username, password=raw_password, email=email)
+			user = authenticate(username =username, password=raw_password, email=email)
 			user.save()
 			send_welcome_email(username,email)
 			login(request, user)
@@ -228,8 +235,7 @@ def edit_profile(request):
     current_user = request.user
 
     if request.method == 'POST':
-        form = NewProfileForm(request.POST, request.FILES, instance=current_user)
-        print(form.is_valid())
+        form = NewProfileForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save(commit=False)
             image.user = current_user
@@ -258,12 +264,11 @@ def new_image(request):
 
 @login_required(login_url='/accounts/login/')
 def profile(request, username):
-    
     if not username:
         username = request.user.username
     # images by user id
         images = Image.objects.filter(user_id=username)
-        user = request.user
+        user = request.user.profile.neighborhood_id
         profiles = Profile.objects.filter(user=user)
     
     else:
@@ -272,7 +277,51 @@ def profile(request, username):
     return render (request, 'profile.html',  {'profiles':profiles})
 
 
+@login_required(login_url='/accounts/login')
+def comments(request, comment_id):
+    neighborhood = get_object_or_404(Neighborhood, pk=comment_id)
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user =  current_user
+            comment.neighborhood = neighborhood
+            comment.save()
+        return redirect(reverse('neighborhood', args=(neighborhood.id,)))
 
+    else:
+        form = CommentForm()
+    return render(request, 'comments.html', {"form": form})
+
+
+
+
+
+@login_required(login_url='/accounts/login/')
+def updateprofile(request):
+
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm()
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'edit_profile.html', context)
+    
 
 
 

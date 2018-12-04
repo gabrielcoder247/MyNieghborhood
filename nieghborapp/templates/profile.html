@@ -11,11 +11,11 @@
             
             <div class="col-md-8 col-sm-8 col-lg-8">
                 <div class="profile-header text-left bg-success">
-    <h1 style="font-size:30px;">{{user.username|upper}}'S Profile</h1>
+    <h1 style="font-size:30px;">{{user.username|upper}}'S PROFILE</h1>
         </div>  
        
         {% for profile in profiles %}
-             <div class="col-sm-offset-2 col-md-4 col-sm-6 margin-left-setting margin-top-150">
+            
         <div class="container">
                
           <table class="table table-hover">
@@ -26,37 +26,41 @@
             <tbody>
               <tr>
                 <th scope="row">USERNAME</th>
-                <td>{{user.username}}</td>
+                <td>{{profile.user.username}}</td>
               </tr>
               <tr>
                 <th scope="row">EMAIL</th>
                 <td>{{user.email}}</td>
               </tr>
               <tr>
-                    <th scope="row">BIO</th>
-                    <td>{{profile.bio}}</td>
+                    <th scope="row">CHECKED INTO</th>
+                    <td> {{request.user.profile.neighborhood_id|length}} neighborhoods</td>
+                    <td>{{profile.user.}}</td>
                   </tr>
             </tbody>
           </table>
          
-        </div>
+        
                 
-               </div>
               
+             
+              {% endfor %}
+           
 
-        </div>
+        
         <div class="col-md-2 col-sm-2 col-lg-2">
                 <div class="me-project">
                     <li style="font-family: 'Oswald', sans-serif;">
                         <a class='btn btn-default' href="{% url 'edit_profile' %}">edit profile</a>
                       </li>
-                  <img  src="{{profile.profile_pic.url}}" class='img-responsive img-rounded' style="height: 200px;width: 50%;">
+                  <img  src="{{profiles.profile_pic.url}}" class='img-responsive img-rounded' style="height: 200px;width: 50%;">
               </div>
-            </div>
-            {% endfor %}
+            
         </div>
+      </div>
           </div>
         </div>
+       
     </section>
 
 

@@ -35,9 +35,9 @@ class Neighborhood(models.Model):
     neighborhood_name = models.CharField(max_length=30, null=True,)
     user = models.ForeignKey(User, related_name="user_neighbor", on_delete=models.CASCADE, null=True)
     neighborhood_location = models.CharField(choices=CITY_CHOICES, max_length=200 ,default=0, null=True, blank=True)
-    population = models.IntegerField(default=0, null=True, blank=True)
+    populations = models.IntegerField(default=0, null=True, blank=True)
     neighborhood_image = models.ImageField(upload_to='image/', null=True,)
-    
+    comments = models.TextField(blank=True, null=True)
     
     
 
@@ -86,10 +86,10 @@ class Business(models.Model):
 	'''
 
 
-    business_name = models.CharField(max_length=30, null=True)
+    business_name = models.CharField(max_length=30)
     business_location = models.CharField(max_length=20, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="user_class")
-    neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,related_name="neighbourhood_class",null=True,blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,null=True,blank=True)
     business_email_address = models.CharField(max_length=200, null = True)
 
     def __str__(self):
@@ -132,15 +132,13 @@ class Profile(models.Model):
 	Model that keeps track of profile datas
 	'''
 
-
-    class Meta:
-        db_table = 'profile'
-
-    bio = models.TextField(max_length=200, null=True, blank=True, default="bio")
-    profile_pic = models.ImageField(upload_to='picture/', null=True, blank=True, default=0)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="prof")
-    email= models.TextField(max_length=200, null=True, blank=True, default=0)
-    neighborhood_id = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,related_name="neighborhood",null=True,blank=True)
+    bio = models.TextField(max_length=200, null=True)
+    profile_pic = models.ImageField(upload_to='prof_pics/', null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    email= models.TextField(max_length=200, null=True, blank=True)
+    neighborhood_id = models.ForeignKey(Neighborhood, null=True)
+    community = models.ForeignKey(Neighborhood,related_name="population",null=True,blank=True)
+    
 
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -167,17 +165,24 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username  
 
-class Location(models.Model):
-    name = models.CharField(max_length=30)
+class Comments(models.Model):
+    title = models.CharField(max_length=30, null=True)
+    post = models.CharField(max_length=200, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name="comment")
 
-    def save_location(self):
+    def save_comments(self):
         self.save()
+    
+    def get_comment(self,id):
+        comment = Comments.objects.filter(user=id)
+        return comment
+        
 
-    def delete_location(self):
+    def delete_comments(self):
         self.delete()
 
     def __str__(self):
-        return self.name  
+        return self.title  
 
 
 
@@ -191,7 +196,7 @@ class Image(models.Model):
     name = models.CharField(max_length=40)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name="images")
     description = models.TextField()
-    location = models.ForeignKey(Location, null=True)
+    comments = models.ForeignKey(Comments, null=True)
     likes = models.IntegerField(default=0)
     comments = models.TextField(blank=True)
 

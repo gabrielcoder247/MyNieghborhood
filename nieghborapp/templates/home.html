@@ -26,14 +26,16 @@
                     <p style="color:white;">{{neighborhood.neighborhood_location}} </p>
                     <p style="font-family: 'Dosis', sans-serif; text-align:center;color:white"> Resident Population:
       
-                      {{ neighborhood.population}}
+
+                      {{request.user.prof.neighborhood_id.populations|length}}
+                     
                     </p>
                 
               </div>
               <div class="card-footer">
                   <button id="button" class="btn  mt-3 btn-outline-success animated pulse loop"
                   style="font-family:'Dosis', sans-serif; text-align:center; width: 100%;">
-            {% if user.profile.neighborhood_id == None %}
+            {% if user.prof.neighborhood_id == None %}
             <a class='btn btn-default' href="{% url 'join' neighborhood.id %}">
           join</a> </button>
                 {%endif%}

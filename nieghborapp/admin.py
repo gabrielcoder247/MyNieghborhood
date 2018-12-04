@@ -7,5 +7,5 @@ from .models import *
 admin.site.register(Neighborhood)
 admin.site.register(Business)
 admin.site.register(Profile)
-admin.site.register(Location)
-admin.site.register(Image)
+admin.site.register(Comments)
+

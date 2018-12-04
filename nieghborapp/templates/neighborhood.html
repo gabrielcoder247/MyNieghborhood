@@ -23,9 +23,9 @@
                 <p class="card-text"><strong><a href="/neighbourhood/{{neighbourhood.id}}">{{neighborhood.neighborhood_name}}</a></strong> </p>
                 <div class="card-body border-info w-33" style="background-color:greenyellow; border-radius: 5px;">
                     <p style="color:white;">{{neighborhood.neighborhood_location}} </p>
-                    <p style="font-family: 'Dosis', sans-serif; text-align:center;color:white"> Resident Population:
+                    <p style="font-family: 'Dosis', sans-serif; text-align:center;color:white">
       
-                      {{ neighborhood.population}}
+                      {{ neighborhood.population|length}} businesses are here 
                     </p>
                 
               </div>
@@ -50,10 +50,21 @@
                 <br> -->
               <hr>
               </div>
-
+              <div class="comments">
+              
+              <!-- <h5 class="card-title" style="font-family: 'Oswald', sans-serif;"></h5> -->
+       
+               <p style="font-family: 'Oswald', sans-serif;">   {{ neighborhood.comments }}</p>
+              </div>
+            
+       
             </div>
+         
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+
+         
+        </div>
         
 </div>
 </div>
